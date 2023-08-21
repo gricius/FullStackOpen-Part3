@@ -41,3 +41,7 @@ The page has to show the time that the request was received and how many entries
 There can only be one response.send() statement in an Express app route. Once you send a response to the client using response.send(), the request-response cycle is complete and no further response can be sent.
 
 To include a line space in the output, use <br/> tag, or wrap the statements in <p> tags.
+# 3.3: Phonebook backend step3
+Implement the functionality for displaying the information for a single phonebook entry. The url for getting the data for a person with the id 5 should be http://localhost:3001/api/persons/5
+
+If an entry for the given id is not found, the server has to respond with the appropriate status code.
