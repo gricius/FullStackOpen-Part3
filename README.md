@@ -62,3 +62,6 @@ Respond to requests like these with the appropriate status code, and also send b
 ```jsx
 { error: 'name must be unique' }
 ```
+# 3.7: Phonebook backend step7
+
+Add the morgan middleware to your application for logging. Configure it to log messages to your console based on the tiny configuration.
