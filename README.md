@@ -65,3 +65,7 @@ Respond to requests like these with the appropriate status code, and also send b
 # 3.7: Phonebook backend step7
 
 Add the morgan middleware to your application for logging. Configure it to log messages to your console based on the tiny configuration.
+# 3.8*: Phonebook backend step8
+Configure morgan so that it also shows the data sent in HTTP POST requests:
+<img src='https://fullstackopen.com/static/4ed4b48465d48df517158501c0be187e/5a190/24.png'>
+

@@ -3,7 +3,13 @@ const morgan = require('morgan');
 const app = express();
 const PORT = 3001;
 
-app.use(morgan('tiny'));
+// Morgan format string for POST requests 
+const customFormat = ':method :url :status :res[content-length] - :response-time ms :req-body';
+
+// Define a token for the request body
+morgan.token('req-body', (req) => JSON.stringify(req.body));
+
+app.use(morgan(customFormat)); 
 app.use(express.json());
 
 let phonebook = [
