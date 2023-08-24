@@ -1,0 +1,7 @@
+POST https://phones-backend.fly.dev/api/persons
+Content-Type: application/json
+
+{
+    "name": "Artooo Hellas",
+    "number": "040-123456"
+}
