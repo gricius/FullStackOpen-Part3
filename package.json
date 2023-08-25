@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../FullStackOpen/part2/phonebook && npm run build && cp -r build ../../../FullStackOpen-Part3 && cd ../../../FullStackOpen-Part3",
     "deploy": "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy",    
+    "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fly": "^4.5.7",
+    "mongoose": "^7.4.4",
     "morgan": "^1.10.0",
     "node": "^20.5.1"
   },
