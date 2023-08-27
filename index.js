@@ -54,10 +54,10 @@ app.get('/info', (req, res) => {
 app.get('/api/persons/:id', (req, res, next) => {
     const id = req.params.id;
     console.log({'Requested Id: ': id}, {'Type of Id: ': typeof id});
-    // Check if id is not an object type then return error
-    if (typeof id !== 'object') {
-        return res.status(400).send({ error: 'malformatted id' });
-    }
+    // // Check if id is not an object type then return error
+    // if (typeof id !== 'object') {
+    //     return res.status(400).send({ error: 'malformatted id' });
+    // }
     
     Person.findById(id)
         .then(person => {
