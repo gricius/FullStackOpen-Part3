@@ -13,6 +13,7 @@ morgan.token('req-body', (req) => JSON.stringify(req.body));
 app.use(morgan(customFormat)); 
 const cors = require('cors');
 const { error } = require('console');
+const { request } = require('http');
 app.use(cors())
 
 app.use(express.json());
@@ -101,6 +102,24 @@ app.post('/api/persons', (req, res) => {
         res.json(savedPerson);
         return res.status(201).end();
     });
+});
+
+app.put('/api/persons/:id', (req, res, next) => {
+    const body = req.body;
+    const id = req.params.id;
+    console.log(id);
+    console.log(body);
+
+    const person = {
+        name: body.name,
+        number: body.number,
+    };
+    Person.findByIdAndUpdate(req.params.id, person, { new: true })
+        .then(updatedPerson => {
+            res.json(updatedPerson);
+        }
+    )
+    .catch(error => next(error));
 });
     
 
