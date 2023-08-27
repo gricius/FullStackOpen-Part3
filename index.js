@@ -11,21 +11,34 @@ const customFormat = ':method :url :status :res[content-length] - :response-time
 morgan.token('req-body', (req) => JSON.stringify(req.body));
 
 app.use(morgan(customFormat)); 
-const cors = require('cors')
+const cors = require('cors');
+const { error } = require('console');
 app.use(cors())
 
 app.use(express.json());
 
 app.use(express.static('build'))
 
-let phonebook = [
-];
+const errorHandler = (error, req, res, next) => {
+    console.error('Error:', error.message);
+    if (error.name === 'CastError') {
+        return res.status(400).send({ error: 'Malformatted id' });
+    } else if (error.name === 'ValidationError') {
+        return res.status(400).send({ error: error.message });
+    }
+    next(error);
+};
+
+app.use(errorHandler);
+
+// let phonebook = [
+// ];
 
 app.get('/api/persons', (req, res) => {
     Person.find({}).then(persons => {
         res.json(persons);
         
-    });
+    })
 })
 
 
@@ -37,9 +50,13 @@ app.get('/info', (req, res) => {
 });
 });
 
-app.get('/api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, res, next) => {
     const id = req.params.id;
-    console.log(id);
+    console.log({'Requested Id: ': id}, {'Type of Id: ': typeof id});
+    // Check if id is not an object type then return error
+    if (typeof id !== 'object') {
+        return res.status(400).send({ error: 'malformatted id' });
+    }
     
     Person.findById(id)
         .then(person => {
@@ -49,7 +66,8 @@ app.get('/api/persons/:id', (req, res) => {
                 res.status(404).end();
             }
         }
-    );
+    )
+    .catch(error => next(error));
 });
 
 app.delete('/api/persons/:id', (req, res) => {
@@ -60,12 +78,10 @@ app.delete('/api/persons/:id', (req, res) => {
         .then(result => {
             res.status(204).end();
         })
-        .catch(err => {
-            console.error(err);
-            res.status(400).send({ error: 'malformatted id' });
+        .catch(error => next(error));
         }
     );
-});
+
 
 app.post('/api/persons', (req, res) => {
     const body = req.body;
