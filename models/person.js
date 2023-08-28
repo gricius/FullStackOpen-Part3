@@ -25,8 +25,15 @@ mongoose.connect(url)
     )
 
 const phonebookSchema = new mongoose.Schema({
-    name: String,
-    number: String,
+    name: {
+        type: String,
+        minlength: 3, // Minimum length of the name
+        required: true,
+      },
+      number: {
+        type: String,
+        required: true,
+      },
 })
 
 phonebookSchema.set('toJSON', {

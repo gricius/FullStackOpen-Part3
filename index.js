@@ -84,7 +84,7 @@ app.delete('/api/persons/:id', (req, res) => {
     );
 
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
     const body = req.body;
 
     if (!body.name || !body.number) {
@@ -101,6 +101,11 @@ app.post('/api/persons', (req, res) => {
     person.save().then(savedPerson => {
         res.json(savedPerson);
         return res.status(201).end();
+    })
+    .catch(error => {
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ error: error.message });
+        }
     });
 });
 

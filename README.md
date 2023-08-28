@@ -185,3 +185,20 @@ number: "040-2345823",
 id: "5c9345980bj00etc"
 }
 ```
+# 3.19*: Phonebook database, step7
+Expand the validation so that the name stored in the database has to be at least three characters long.
+
+Expand the frontend so that it displays some form of error message when a validation error occurs. Error handling can be implemented by adding a catch block as shown below:
+```JSX
+personService
+    .create({ ... })
+    .then(createdPerson => {
+      // ...
+    })
+    .catch(error => {
+      // this is the way to access the error message
+      console.log(error.response.data.error)
+    })
+```
+You can display the default error message returned by Mongoose, even though they are not as readable as they could be:
+<img src='https://fullstackopen.com/static/fddf847e340f060549c3029f464a5493/5a190/56e.png'>
