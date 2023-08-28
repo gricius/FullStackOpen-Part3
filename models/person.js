@@ -1,12 +1,3 @@
-/*
-establish connection to mongodb database with const url = process.env.MONGODB_URI
-create a schema for the phonebook entries containing fields name and number
-transform the object returned by Mongoose with toJSON method delete the _id and __v properties from the returned object with transform method
-export the mongoose model
-*/
-
-// Path: models/person.js
-// Compare this snippet from index.js:
 const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false)
@@ -27,14 +18,20 @@ mongoose.connect(url)
 const phonebookSchema = new mongoose.Schema({
     name: {
         type: String,
-        minlength: 3, // Minimum length of the name
+        minlength: 3,
         required: true,
       },
       number: {
         type: String,
         required: true,
+        validate: {
+          validator: function (value) {
+           return /^\d{2,3}-\d+$/.test(value);
+          },
+          message: props => `${props.value} is not a valid phone number! Format should be XX-XXXXXXX or XXX-XXXXXXX.`,
+        },
       },
-})
+    });
 
 phonebookSchema.set('toJSON', {
     transform: (document, returnedObject) => {

@@ -85,17 +85,9 @@ app.delete('/api/persons/:id', (req, res) => {
 
 
 app.post('/api/persons', (req, res, next) => {
-    const body = req.body;
-
-    if (!body.name || !body.number) {
-        return res.status(400).json({
-            error: 'content missing'
-        });
-    }
-
-    const person = new Person({
-        name: body.name,
-        number: body.number,
+   const person = new Person({
+        name: req.body.name,
+        number: req.body.number,
     });
 
     person.save().then(savedPerson => {
@@ -106,6 +98,7 @@ app.post('/api/persons', (req, res, next) => {
         if (error.name === 'ValidationError') {
             return res.status(400).json({ error: error.message });
         }
+        next(error);
     });
 });
 
