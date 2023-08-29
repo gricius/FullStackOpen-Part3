@@ -1,6 +1,6 @@
 Phone Book live - https://phones-backend.fly.dev/
 
-## Continueation of https://github.com/gricius/FullStackOpen
+## Continuation of https://github.com/gricius/FullStackOpen
 # 3.1: Phonebook backend step1
 Implement a Node application that returns a hardcoded list of phonebook entries from the address http://localhost:3001/api/persons.
 
